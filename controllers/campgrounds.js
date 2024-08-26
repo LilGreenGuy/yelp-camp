@@ -14,7 +14,7 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = async (req, res) => {
-    geocoder.forwardGeocode({
+    const geoData = geocoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
     }).send()
