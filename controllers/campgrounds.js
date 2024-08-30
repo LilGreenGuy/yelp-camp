@@ -5,7 +5,7 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({});
+    const campgrounds = await Campground.find({}).populate('reviews');
     res.render('campgrounds/index', { campgrounds })
 }
 
@@ -17,11 +17,15 @@ module.exports.createCampground = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
-    }).send()
+    }).send();
     const campground = new Campground(req.body.campground);
     campground.geometry = geoData.body.features[0].geometry;
     campground.images = req.files.map(file => ({ url: file.path, filename: file.filename }));
     campground.author = req.user._id;
+    if(!req.files.length) {
+        return req.flash('error', 'Please upload an image!')
+    }
+    console.log(req.files)
     await campground.save();
     req.flash('success', 'Sucessfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);
@@ -53,6 +57,10 @@ module.exports.renderEditForm = async (req, res) => {
 }
 
 module.exports.updateCampground = async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    }).send();
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
     campground.geometry = geoData.body.features[0].geometry;

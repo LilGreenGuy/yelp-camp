@@ -21,6 +21,7 @@ const dbUrl = process.env.DB_URL;
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 
 mongoose.connect(dbUrl);
 
@@ -62,7 +63,7 @@ const sessionConfig = {
     resave: false,
     saveUninitialized: true,
     cookie: {
-        httpOnly: true, // Says cookies set through the section are only accessible over HHTP, not Javascript
+        httpOnly: true, // Says cookies set through the section are only accessible over HTTP, not Javascript
         // secure: true, // HTTPS.  Doels NOT work in development mode.
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 604800000
@@ -140,6 +141,7 @@ app.use((req, res, next) => {
 // ROUTES
 
 app.use('/', authRoutes);
+app.use('/profile', profileRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
 

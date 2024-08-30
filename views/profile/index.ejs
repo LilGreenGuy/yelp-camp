@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate')%>
+
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-10 mb-3">
+            <div class="card shadow">
+                <div class="card-img-top">
+                    <a href=""></a>
+                    <img src="<%=currentUser.image || 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' %>"
+                        alt="" class="img-thumbnail rounded-circle profile-pic" />
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Profile Info</h5>
+                        <form action="/profile/<%= currentUser._id %>/edit" method="GET" class="validated-form" novalidate>
+                            <div class="mb-3">
+                                <h6>Email</h6>
+                                <p class="card-text">
+                                    <%=currentUser.username%>
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Email</h6>
+                                <p class="card-text">
+                                    <%=currentUser.email %>
+                                </p>
+                            </div>
+                            <!-- <button class="btn btn-success btn-block">Update Profile</button> -->
+                        </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-sm-10">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title pb-2 border-bottom">
+                        Submitted Campgrounds
+                    </h4>
+                    <% for(let campground of campgrounds) {%>
+                        <div class="card mb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <% if(campground.images.length) {%>
+                                        <img class="img-fluid" alt="Image of a campground in <%=campground.location %>"
+                                            src="<%=campground.images[0].url%>" crossorigin="anonymous">
+                                        <% } else { %>
+                                            <img class="img-fluid" alt="" src="">
+                                            <% } %>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%=campground.title%>
+                                        </h5>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <%=campground.location %>
+                                            </small>
+                                        </p>
+                                        <% if(!campground.reviewRating) {%>
+                                            <p class="card-text starability-result"
+                                                data-rating="<%= campground.reviewRating %>">
+                                                Rated: 0 stars
+                                            </p>
+                                            <% } else {%>
+                                                <p class="card-text starability-result"
+                                                    data-rating="<%= campground.reviewRating %>">
+                                                    Rated: <%= campground.reviewRating %> stars
+                                                </p>
+                                                <% } %>
+                                                    <p class="card-text">
+                                                        <%=campground.description %>
+                                                    </p>
+                                                    <a class="btn btn-primary"
+                                                        href="/campgrounds/<%=campground._id %>">View
+                                                        <%=campground.title %>
+                                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+
+                </div>
+            </div>
+        </div>
+    </div>
