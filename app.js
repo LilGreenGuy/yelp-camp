@@ -64,7 +64,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true, // Says cookies set through the section are only accessible over HTTP, not Javascript
-        secure: true, // HTTPS.  Doels NOT work in development mode.
+        // secure: true, // HTTPS.  Doels NOT work in development mode.
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 604800000
     }

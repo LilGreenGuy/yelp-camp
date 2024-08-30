@@ -4,26 +4,24 @@
     <div class="row">
         <div class="col-lg-3 col-sm-10 mb-3">
             <div class="card shadow">
-                <div class="card-img-top">
-                    <a href=""></a>
+                
+                <div class="card mx-2 my-2 px-2 py-2 rounded-top-pill">
                     <img src="<%=currentUser.image || 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' %>"
-                        alt="" class="img-thumbnail rounded-circle profile-pic" />
-                </div>
+                        alt="" class="img-fluid rounded-circle profile-pic mb-2" />
 
-                <div class="card-body">
-                    <h4 class="card-title">Profile Info</h5>
-                        <form action="/profile/<%= currentUser._id %>/edit" method="GET" class="validated-form" novalidate>
+
+                    <h4 class="card-title">Profile Info</h4>
+                        <form action="/profile/<%= currentUser._id %>/edit" method="GET" class="validated-form"
+                            novalidate>
                             <div class="mb-3">
-                                <h6>Email</h6>
-                                <p class="card-text">
-                                    <%=currentUser.username%>
-                                </p>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Email</h6>
-                                <p class="card-text">
-                                    <%=currentUser.email %>
-                                </p>
+                                        <h6>Username</h6>
+                                        <p class="card-text">
+                                            <%=currentUser.username%>
+                                        </p>
+                                        <h6>Email</h6>
+                                        <p class="card-text">
+                                            <%=currentUser.email %>
+                                        </p>
                             </div>
                             <!-- <button class="btn btn-success btn-block">Update Profile</button> -->
                         </form>
@@ -32,13 +30,13 @@
         </div>
 
         <div class="col-lg-9 col-sm-10">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
                     <h4 class="card-title pb-2 border-bottom">
                         Submitted Campgrounds
                     </h4>
                     <% for(let campground of campgrounds) {%>
-                        <div class="card mb-3">
+                        <div class="card shadow mb-3">
                             <div class="row">
                                 <div class="col-md-4">
                                     <% if(campground.images.length) {%>
