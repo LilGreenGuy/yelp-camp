@@ -6,7 +6,8 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({}).populate('reviews');
-    res.render('campgrounds/index', { campgrounds })
+    console.log(req)
+    res.render('campgrounds/index', { campgrounds });
 }
 
 module.exports.renderNewForm = (req, res) => {
@@ -39,6 +40,7 @@ module.exports.showCampground = async (req, res) => {
             path: 'author'
         }
     }).populate('author');
+    console.log(req)
     if (!campground) {
         req.flash('error', 'Campground not found!');
         return res.redirect('/campgrounds');

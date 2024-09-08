@@ -16,8 +16,12 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },    
+    displayname: {
+        type: String,
+        required: true,
     },
-    images: [ImageSchema],
+    image: ImageSchema,
 });
 
 UserSchema.plugin(passportLocalMongoose);

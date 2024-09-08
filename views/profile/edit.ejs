@@ -1,22 +1,27 @@
 <% layout('layouts/boilerplate')%>
 
 
-    <div class="row">
-        <div class="col-lg-3 col-sm-10 mb-3">
-            <div class="card shadow">
-                <div class="card-img-top">
-                    <a href=""></a>
-                    <img src="<%=currentUser.image || 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' %>"
-                    alt="" class="img-thumbnail rounded-circle profile-pic" />
-                </div>
-                
-                <div class="card-body">
-                    <h5 class="card-title">Profile Info</h5>
-                    <form action="/profile/<%= currentUser._id %>?_method=PUT" method="POST" class="validated-form" novalidate>
+    <div class="card shadow">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="<%=user.image ? user.image.url : 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' %>"
+                alt="" class="img-thumbnail rounded-circle profile-pic p-5 mw-25" />
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card-body mt-4">
+                    <h5 class="card-title mb-4">Profile Info</h5>
+                    <form action="/profile/<%= user._id %>?_method=PUT" method="POST" class="validated-form"
+                        novalidate enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="image" name="image">
+                            <label class="input-group-text"  for="image">Change Profile Pic</label>
+                        </div>
                         <div class="mb-3">
-                            <label class="form-label" for="username">Username</label>
-                            <input class="form-control" type="text" id="username" name="user[username]" required autofocus
-                                value="<%=currentUser.username%>">
+                            <label class="form-label" for="displayname">Display Name</label>
+                            <input class="form-control" type="text" id="displayname" name="user[displayname]" required
+                                autofocus value="<%=user.displayname%>">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -24,14 +29,14 @@
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
                             <input class="form-control" type="email" id="email" name="user[email]" required
-                                value="<%=currentUser.email %>">
+                                value="<%=user.email %>">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
-                <button class="btn btn-success btn-block">Update Profile</button>
-                </form>
-            </div>
+                        <button class="btn btn-success btn-block">Submit Changes</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

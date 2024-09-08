@@ -47,7 +47,7 @@
                         <%=campground.location %>
                     </li>
                     <li class="list-group-item">
-                        Submitted by <%=campground.author.username %>
+                        Submitted by <%=campground.author.displayname%>
                     </li>
                     <li class="list-group-item">$<%=campground.price %>/night
                     </li>
@@ -98,13 +98,10 @@
                     <% for(let review of campground.reviews) { %>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h5 class="card-title">By: <%=review.author.username %>
+                                <h5 class="card-title">By: <%=review.author.displayname%>
                                 </h5>
-                                <p class="starability-result" data-rating="<%= review.rating %>">
-                                    Rated: <%= review.rating %> stars
-                                </p>
-                                <p class="card-text mb-3">Review: <%= review.body %>
-                                </p>
+                                <p class="starability-result" data-rating="<%= review.rating %>">Rated: <%= review.rating %> stars</p>
+                                <p class="card-text mb-3"><%= review.body %></p>
                                 <form action="/campgrounds/<%= campground._id %>/reviews/<%=review._id%>?_method=DELETE"
                                     method="POST">
                                     <% if(currentUser && review.author.equals(currentUser._id)) {%>
